@@ -1,0 +1,44 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int main(void) {
+    int numbers[100]; // 1차원 배열을 선언, 최대 100개의 정수를 저장할 수 있도록 설정
+    int temp, result, count = 0;
+    int max, min;
+    FILE* fp;
+
+    // 파일 경로의 백슬래시를 이중으로 변경
+    fp = fopen("C:\\Users\\user\\Desktop\\202415040\\Project4\\Project4\\data.txt", "r");
+    if (fp == NULL) {
+        printf("파일을 열 수 없습니다.\n");
+    }
+    else {
+        // 파일에서 정수를 읽고, 배열에 저장
+        do {
+            result = fscanf(fp, "%d", &temp);
+            if (result == 1) {  // 성공적으로 정수를 읽었는지 확인
+                numbers[count++] = temp;
+                if (count >= 100) break; // 배열 용량 초과 방지
+            }
+        } while (result != EOF);
+
+        fclose(fp); // 파일 닫기
+
+        // 배열에 저장된 값에서 최대값과 최소값 찾기
+        if (count > 0) {
+            max = min = numbers[0]; // 초기 최대값과 최소값 설정
+            for (int i = 1; i < count; i++) {
+                if (numbers[i] > max) max = numbers[i];
+                if (numbers[i] < min) min = numbers[i];
+            }
+
+            printf("최대값: %d\n", max);
+            printf("최소값: %d\n", min);
+        }
+        else {
+            printf("파일에 유효한 데이터가 없습니다.\n");
+        }
+    }
+
+    return 0;
+}
