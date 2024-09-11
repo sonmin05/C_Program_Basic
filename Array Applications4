@@ -68,37 +68,69 @@ void YawAngles(double x[], double y[], int count, double yaw_angle[])
 
 }
 
-void ascending_sort(double X[], double Y[], double Angle[], double Distance[], int column) {        // 오름차순 함수
+void ascending_sort(double X[], double Y[], double Angle[], double Dist[], int column)
+{
+    DIST(X, Y, Dist);
     double temp = 0;
-    for (int i = 1; i < column; ++i)
+    for (int i = 0; i < column; i++) 
     {
-        Distance[i] = sqrt((X[i] - X[i - 1]) * (X[i] - X[i - 1]) + (Y[i] - Y[i - 1]) * (Y[i] - Y[i - 1]));
-    }
-    
-    for (int i = 1; i < column; i++) {
-        for (int j = i; j < column; j++) {
-            if (Distance[i] > Distance[j]) {
-                temp = Distance[i];
-                Distance[i] = Distance[j];
-                Distance[j] = temp;
+        for (int j = i; j < column; j++) 
+        {
+            if (Dist[i] > Dist[j]) 
+            {
+                // 거리 교환
+                temp = Dist[i];
+                Dist[i] = Dist[j];
+                Dist[j] = temp;
+
+                // X 교환
+                temp = X[i];
+                X[i] = X[j];
+                X[j] = temp;
+
+                // Y 교환
+                temp = Y[i];
+                Y[i] = Y[j];
+                Y[j] = temp;
+
+                // Angle 교환
+                temp = Angle[i];
+                Angle[i] = Angle[j];
+                Angle[j] = temp;
             }
         }
     }
-    
 }
 
-void descending_sort(double X[], double Y[], double Angle[], double Distance[], int column) {      // 내림차순 함수
+void descending_sort(double X[], double Y[], double Angle[], double Dist[], int column)
+{      // 내림차순 함수
+    DIST(X, Y, Dist);
     double temp = 0;
-    for (int i = 1; i < column; ++i)
+    for (int i = 0; i < column; i++) 
     {
-        Distance[i] = sqrt((X[i] - X[i - 1]) * (X[i] - X[i - 1]) + (Y[i] - Y[i - 1]) * (Y[i] - Y[i - 1]));
-    }
-    for (int i = 1; i < column; i++) {
-        for (int j = i; j < column; j++) {
-            if (Distance[i] < Distance[j]) {
-                temp = Distance[i];
-                Distance[i] = Distance[j];
-                Distance[j] = temp;
+        for (int j = i; j < column; j++) 
+        {
+            if (Dist[i] < Dist[j]) 
+            {
+                // 거리 교환
+                temp = Dist[i];
+                Dist[i] = Dist[j];
+                Dist[j] = temp;
+
+                // X 교환
+                temp = X[i];
+                X[i] = X[j];
+                X[j] = temp;
+
+                // Y 교환
+                temp = Y[i];
+                Y[i] = Y[j];
+                Y[j] = temp;
+
+                // Angle 교환
+                temp = Angle[i];
+                Angle[i] = Angle[j];
+                Angle[j] = temp;
             }
         }
     }
@@ -181,18 +213,22 @@ int main(void)
     case 6:
     {
         ascending_sort(X, Y, Angle, Distance, n);
-        for (int i = 1; i < n; i++)
+        printf("Ascending\n\n");
+        for (int i = 0; i < n; i++)
         {
-            printf("Distance_ascending[%d] = %lf\n", i, Distance[i]);
+            printf("X[%d] = %lf, Y[%d] = %lf, Angle[%d] = %lf, ", i, X[i], i, Y[i], i, Angle[i]);
+            printf("Distance[%d] = %lf\n", i, Distance[i]);
         }
         break;
     }
     case 7:
     {
-        descending_sort(X, Y, Angle, Distance, n);
-        for (int i = 1; i < n; i++)
+        descending_sort(X, Y, Angle, Dist, n);
+        printf("Descending\n\n");
+        for (int i = 0; i < n; i++)
         {
-            printf("Distance_descending[%d] = %lf\n", i, Distance[i]);
+            printf("X[%d] = %lf, Y[%d] = %lf, Angle[%d] = %lf, ", i, X[i], i, Y[i], i, Angle[i]);
+            printf("Distance[%d] = %lf\n", i, Dist[i]);
         }
         break;
     }
